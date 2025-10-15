@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Boolsai — Live Tech-Signal Intelligence</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#0b0d13',
+                        panel: '#121622',
+                        ink: '#e9ecf1',
+                        muted: '#8f9bb3',
+                        accent: '#6ee7ff',
+                        accent2: '#a78bfa',
+                        good: '#22c55e',
+                        warn: '#f59e0b',
+                        bad: '#ef4444'
+                    },
+                    boxShadow: {
+                        glass: '0 40px 120px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06)',
+                    },
+                    borderRadius: {
+                        'xl2': '28px'
+                    },
+                    backgroundImage: {
+                        grid: 'radial-gradient(80% 100% at 50% 0%, #15192b 0%, #0b0d13 60%, #06070b 100%)',
+                        stairA: 'linear-gradient(180deg, #0e1a2e, #0b1424)',
+                        stairB: 'linear-gradient(180deg, #11213b, #0b1424)',
+                        stairC: 'linear-gradient(180deg, #14284a, #0b1424)',
+                        stairD: 'linear-gradient(180deg, #18325d, #0b1424)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Scrollbar + selection niceties */
+        ::selection {
+            background: rgba(110, 231, 255, .25);
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 999px;
+        }
+
+        /* Reveal animation (medium) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px) scale(.995);
+            transition: all .7s cubic-bezier(.2, .65, .2, 1);
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Shimmer */
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255, 255, 255, .06) 0%, rgba(255, 255, 255, .20) 50%, rgba(255, 255, 255, .06) 100%);
+            background-size: 200% 100%;
+            animation: shine 3.2s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Progress bar */
+        #progress {
+            position: fixed;
+            inset: 0 auto auto 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #6ee7ff, #a78bfa);
+            box-shadow: 0 0 12px rgba(167, 139, 250, .7);
+            z-index: 50;
+            transition: width .15s linear;
+        }
+
+        /* Parallax gradient layers */
+        .para {
+            position: fixed;
+            inset: -10vh 0 0 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(1200px 480px at -20% 120%, rgba(110, 231, 255, .08), rgba(110, 231, 255, 0) 50%),
+                radial-gradient(1000px 520px at 110% -20%, rgba(167, 139, 250, .08), rgba(167, 139, 250, 0) 40%),
+                var(--grid, radial-gradient(80% 100% at 50% 0%, #15192b 0%, #0b0d13 60%, #06070b 100%));
+            transform: translateY(0);
+            transition: transform .2s linear;
+        }
+    </style>
+</head>
+
+<body class="bg-grid text-ink selection:bg-sky-400/20">
+
+    <!-- Parallax background -->
+    <div class="para"></div>
+
+    <!-- Progress bar -->
+    <div id="progress"></div>
+
+    <!-- Top nav (minimal anchors) -->
+    <header class="fixed top-0 left-0 right-0 z-40">
+        <div
+            class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between backdrop-blur-md bg-black/20 border-b border-white/10 rounded-b-2xl">
+            <div class="flex items-center gap-2">
+                <div class="h-6 w-6 rounded-md bg-gradient-to-br from-accent to-accent2"></div>
+                <span class="text-sm tracking-wide text-white/80">Boolsai — Live Tech-Signal Intelligence</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-6 text-sm text-white/70">
+                <a href="#intro" class="hover:text-white">Intro</a>
+                <a href="#operational" class="hover:text-white">Operational Signals</a>
+                <a href="#live-example" class="hover:text-white">Live Example</a>
+                <a href="#flow-map" class="hover:text-white">Flow Map</a>
+                <a href="#stair" class="hover:text-white">Growth Signals</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="relative pt-20">
+
+        <!-- SECTION: Intro (Slide 1 content) -->
+        <!-- SLIDE 1: What Boolsai Does -->
+        <section id="value" class="min-h-screen flex items-center">
+            <div class="mx-auto max-w-6xl px-6 text-center">
+                <div class="reveal bg-white/5 border border-white/10 shadow-glass rounded-xl2 p-12">
+
+                    <h3 class="text-4xl md:text-5xl font-semibold text-white mb-8 leading-tight">
+                        The <span class="text-accent">Hidden Dealflow</span> Intelligence in Website Code
+                    </h3>
+                    <br><br>
+                    <!-- Formula -->
+                    <div class="bg-black/30 border border-white/10 rounded-2xl px-6 py-10 mb-10">
+                        <div class="text-2xl md:text-3xl font-medium text-white tracking-tight">
+                            <span class="text-accent">Live Tech Detection</span> ×
+                            <span class="text-accent2">Tool Context</span>
+                            <span class="text-slate-400">=</span>
+                            <span class="text-sky-300 font-semibold">Untouched DTC Unicorns</span>
+                        </div>
+                        <p class="text-slate-400 text-sm mt-3">
+                            <br>Reverse-engineer any brand’s growth, strategy, and scale — directly from its code.
+                        </p>
+                    </div>
+
+                    <p class="text-slate-300 text-lg max-w-2xl mx-auto">
+                        <br><br><br><b>Boolsai</b> turns raw website code into <b>dealflow intelligence</b> —
+                        identifying high-revenue, founder-led consumer brands <span class="text-accent">invisible to
+                            investors</span>
+                        and <span class="text-accent2">months ahead of the market</span>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="operational" class="min-h-screen flex items-center">
+            <div class="mx-auto max-w-6xl px-5 space-y-8">
+                <div class="reveal bg-white/5 border border-white/10 shadow-glass rounded-xl2 p-8 md:p-10">
+                    <h2 class="text-3xl md:text-4xl text-white mb-4">
+                        Operational Signals Revealed from Tech Signatures
+                    </h2>
+
+                    <p class="text-slate-300 text-lg max-w-3xl mb-6">
+                        Every company’s technology stack leaves <b>visible traces</b> in its front-end code.
+                        Boolsai decodes these traces to infer <b>revenue, scale, and operational maturity</b> — turning
+                        tech into market intelligence.
+                    </p>
+
+                    <div class="mt-4 rounded-xl border border-white/10 bg-indigo-950/30 p-4">
+                        <p class="m-0 text-[17px] text-indigo-200">
+                            <strong>Boolsai</strong> detects and classifies over <strong>100+ tools</strong>,
+                            forming a <span class="text-accent2">signal fingerprint</span> of each brand’s true
+                            sophistication.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Key Categories -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                    <!-- Growth Stack -->
+                    <div class="reveal bg-panel/90 border border-white/10 rounded-2xl p-6 shadow-inner">
+                        <h3 class="text-lg text-accent font-semibold mb-2">Growth & Acquisition</h3>
+                        <p class="text-slate-400 text-sm mb-3">
+                            Paid media · Customer acquisition sophistication
+                        </p>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/meta.com"
+                                title="Meta Pixel">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/tiktok.com" title="TikTok">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/pinterest.com"
+                                title="Pinterest">
+                        </div>
+                    </div>
+
+                    <!-- CRM & Lifecycle -->
+                    <div class="reveal bg-panel/90 border border-white/10 rounded-2xl p-6 shadow-inner">
+                        <h3 class="text-lg text-accent font-semibold mb-2">CRM & Outbound</h3>
+                        <p class="text-slate-400 text-sm mb-3">
+                            Mature Retention focus
+                        </p>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/klaviyo.com"
+                                title="Klaviyo">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/gorgias.com"
+                                title="Gorgias">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/attentivemobile.com"
+                                title="Attentive">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/okendo.io" title="Okendo">
+                        </div>
+                    </div>
+
+                    <!-- Analytics & Attribution -->
+                    <div class="reveal bg-panel/90 border border-white/10 rounded-2xl p-6 shadow-inner">
+                        <h3 class="text-lg text-accent font-semibold mb-2">Analytics & Attribution</h3>
+                        <p class="text-slate-400 text-sm mb-3">
+                            Scaled data and performance
+                        </p>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/triplewhale.com"
+                                title="Triple Whale">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/northbeam.io"
+                                title="Northbeam">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/amplitude.com"
+                                title="Amplitude">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/ga4.com"
+                                title="Google Analytics 4">
+                        </div>
+                    </div>
+
+                    <!-- Commerce Core -->
+                    <div class="reveal bg-panel/90 border border-white/10 rounded-2xl p-6 shadow-inner">
+                        <h3 class="text-lg text-accent font-semibold mb-2">Commerce & Payments</h3>
+                        <p class="text-slate-400 text-sm mb-3">
+                            Transaction complexity · Revenue scale
+                        </p>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/shopify.com"
+                                title="Shopify Plus">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/stripe.com" title="Stripe">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/afterpay.com"
+                                title="Afterpay">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/checkout.com"
+                                title="Checkout.com">
+                        </div>
+                    </div>
+
+                    <!-- Personalisation -->
+                    <div class="reveal bg-panel/90 border border-white/10 rounded-2xl p-6 shadow-inner">
+                        <h3 class="text-lg text-accent font-semibold mb-2">Personalisation & Testing</h3>
+                        <p class="text-slate-400 text-sm mb-3">
+                            Data-driven optimization · Revenue scaling
+                        </p>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/rebuyengine.com"
+                                title="Rebuy">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/growthbook.io"
+                                title="GrowthBook">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/optimizely.com"
+                                title="Optimizely">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/vwo.com" title="VWO">
+                        </div>
+                    </div>
+
+                    <!-- Infrastructure -->
+                    <div class="reveal bg-panel/90 border border-white/10 rounded-2xl p-6 shadow-inner">
+                        <h3 class="text-lg text-accent font-semibold mb-2">Distribution Infrastructure</h3>
+                        <p class="text-slate-400 text-sm mb-3">
+                            Global delivery capability
+                        </p>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/cloudflare.com"
+                                title="Cloudflare">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/fastly.com" title="Fastly">
+                            <img class="h-10 w-10 rounded-lg" src="https://logo.clearbit.com/akamai.com" title="Akamai">
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class="text-slate-400 text-sm text-center mt-4">
+                    These categories together form the <span class="text-accent2">operational DNA</span> that Boolsai
+                    reads
+                    to infer growth, maturity, and revenue potential.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- SECTION: Live Example (iframe) -->
+        <section id="live-example" class="min-h-screen flex items-center">
+            <div class="mx-auto max-w-6xl px-5 w-full">
+                <div class="reveal bg-white/5 border border-white/10 shadow-glass rounded-xl2 p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl text-indigo-100 mb-2">Live Example: July.com Signal Extraction</h2>
+                    <p class="text-[18px] text-slate-300 mb-4">Example: <strong>July</strong> — real signals extracted
+                        from live site scan.</p>
+                    <div class="border border-white/10 rounded-2xl overflow-hidden bg-[#0f1424]">
+                        <iframe src="https://boolsai.ai" width="100%" height="700" style="border:none;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Flow Map (your structured process map) -->
+
+
+        <section class="slide" id="slidea">
+            <!doctype html>
+            <html lang="en">
+
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <title>Business Tech Stack Flow Map</title>
+                <style>
+                    :root {
+                        --bg: #0b0d13;
+                        --panel: #121622;
+                        --ink: #e9ecf1;
+                        --muted: #8f9bb3;
+                        --accent: #6ee7ff;
+                        --accent2: #a78bfa;
+                        --line: #2a3247;
+                        --good: #22c55e;
+                    }
+
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+                        background: radial-gradient(100% 150% at 50% 0%, #161b29 0%, #0b0d13 70%, #06070c 100%);
+                        color: var(--ink);
+                    }
+
+                    h1 {
+                        font-size: 26px;
+                        text-align: center;
+                        letter-spacing: .3px;
+                        margin: 36px 0 20px;
+                        color: var(--accent);
+                    }
+
+                    .container {
+                        display: grid;
+                        grid-template-columns: 1fr 1.2fr;
+                        gap: 40px;
+                        align-items: start;
+                        max-width: 1200px;
+                        margin: auto;
+                        padding: 0 40px 60px;
+                    }
+
+                    .flow {
+                        position: relative;
+                        padding-left: 80px;
+                    }
+
+                    .vertical-line {
+                        position: absolute;
+                        left: 200px;
+                        top: 110px;
+                        ;
+                        bottom: 110px;
+                        width: 10px;
+                        background: linear-gradient(var(--accent), #334155);
+                        border-radius: 2px;
+                    }
+
+                    .layer {
+                        position: relative;
+                        display: flex;
+                        align-items: flex-start;
+                        margin: 45px 0;
+                    }
+
+
+                    .layer:first-child::before {
+                        display: none;
+                    }
+
+                    .box {
+                        background: linear-gradient(180deg, #171c2c, #10131f);
+                        border: 1px solid #222a3e;
+                        border-left: 4px solid var(--accent);
+                        padding: 14px 18px;
+                        border-radius: 10px;
+                        box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+                        font-size: 14px;
+                        line-height: 1.4;
+                        width: 700px;
+                    }
+
+                    .box-title {
+                        color: var(--accent);
+                        font-weight: 700;
+                        font-size: 14px;
+                        text-transform: uppercase;
+                        margin-bottom: 8px;
+                    }
+
+                    .tech-group {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                    }
+
+                    .tech {
+                        background: #1c2438;
+                        border: 1px solid #2a314a;
+                        border-radius: 6px;
+                        padding: 4px 8px;
+                        font-size: 13px;
+                    }
+
+                    .comment {
+
+
+                        border-radius: 12px;
+                        padding: 16px 20px;
+                        margin-top: -6px;
+                        margin-left: 20px;
+                        font-size: 14px;
+                        line-height: 1.5;
+
+                    }
+
+                    .comment strong {
+                        color: var(--good);
+                    }
+
+                    .comment b {
+                        color: var(--accent);
+                    }
+
+                    footer {
+                        grid-column: span 2;
+                        text-align: center;
+                        margin-top: 30px;
+                        font-size: 13px;
+                        color: var(--muted);
+                    }
+                </style>
+            </head>
+
+            <body>
+
+                <h1>Reverse-engineering July.com from Tech Profile</h1>
+
+                <div class="container">
+                    <!-- LEFT PROCESS HIERARCHY -->
+                    <section class="flow">
+                        <div class="vertical-line"></div>
+
+                        <!-- Layer 1 -->
+                        <div class="layer">
+                            <div class="box">
+                                <div class="box-title">1. Traffic & Acquisition</div>
+                                <div class="tech-group">
+                                    <div class="tech">Meta Pixel</div>
+                                    <div class="tech">Google Ads</div>
+                                    <div class="tech">Pinterest Pixel</div>
+                                    <div class="tech">Twitter Pixel</div>
+                                    <div class="tech">LinkedIn Insight</div>
+                                    <div class="tech">Impact / Affiliate</div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <b>Acquisition Engine:</b> Multi-network ad pixels and affiliate integration indicate
+                                sophisticated
+                                performance marketing and multi-source traffic inflow.<br>
+
+                            </div>
+                        </div>
+
+                        <!-- Layer 2 -->
+                        <div class="layer">
+                            <div class="box">
+                                <div class="box-title">2. Analytics</div>
+                                <div class="tech-group">
+                                    <div class="tech">Google Analytics / GA4</div>
+                                    <div class="tech">Segment (CDP)</div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <b>Data Infrastructure:</b> Centralized tagging + CDP unify attribution, enabling
+                                cross-channel
+                                insights
+                                and event-driven automation.<br>
+
+                            </div>
+                        </div>
+
+                        <!-- Layer 3 -->
+                        <div class="layer">
+                            <div class="box">
+                                <div class="box-title">3. Customer Lifecycle</div>
+                                <div class="tech-group">
+                                    <div class="tech">Klaviyo</div>
+                                    <div class="tech">Attentive</div>
+                                    <div class="tech">Gorgias</div>
+                                    <div class="tech">Okendo</div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <b>Retention Stack:</b> Email, SMS, reviews, and support unify to maximize LTV and
+                                retention
+                                efficiency.<br>
+
+                            </div>
+                        </div>
+
+                        <!-- Layer 4 -->
+                        <!-- <div class="layer">
+                            <div class="box">
+                                <div class="box-title">4. Site Architecture</div>
+                                <div class="tech-group">
+                                    <div class="tech">Gatsby</div>
+                                    <div class="tech">React</div>
+                                    <div class="tech">Webpack</div>
+                                    <div class="tech">Cloudflare CDN</div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <b>Infrastructure:</b> Headless JAMstack build with CDN delivery = speed, SEO, and dev
+                                investment.<br>
+                                <strong>Revenue Signal:</strong> Indicates internal engineering & content optimization;
+                                <b>$2–5M
+                                    GMV+</b>.
+                            </div>
+                        </div> -->
+
+                        <!-- Layer 5 -->
+                        <div class="layer">
+                            <div class="box">
+                                <div class="box-title">5. Checkout & Payments</div>
+                                <div class="tech-group">
+                                    <div class="tech">Stripe</div>
+                                    <div class="tech">Afterpay</div>
+                                    <div class="tech">Checkout.com</div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <b>Commerce Core:</b> Multi-PSP stack enables global routing, redundancy, and BNPL
+                                integration.<br>
+
+                            </div>
+                        </div>
+
+                        <!-- Layer 6 -->
+                        <!-- <div class="layer">
+                            <div class="box">
+                                <div class="box-title">6. Compliance & SEO</div>
+                                <div class="tech-group">
+                                    <div class="tech">Usercentrics</div>
+                                    <div class="tech">AccessiBe</div>
+                                    <div class="tech">OpenGraph</div>
+                                    <div class="tech">Twitter Cards</div>
+                                    <div class="tech">hreflang / Canonical</div>
+                                    <div class="tech">Pinterest Verify</div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <b>Governance Layer:</b> Consent, accessibility, and meta structure show enterprise
+                                readiness and
+                                global positioning.<br>
+                                <strong>Revenue Signal:</strong> Typically formalizing compliance; ~<b>$10–30M GMV</b>.
+                            </div>
+                        </div> -->
+
+                        <!-- Layer 7 -->
+                        <div class="layer">
+                            <div class="box">
+                                <div class="box-title">7. Growth Feedback Loop</div>
+                                <div class="tech-group">
+                                    <div class="tech">Attribution Data</div>
+                                    <div class="tech">Klaviyo Retargeting</div>
+                                    <div class="tech">Affiliate Optimization</div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <b>Optimization Loop:</b> Real-time feedback from ads → CRM → LTV drives budget
+                                efficiency and
+                                predictable ROI.<br>
+
+                            </div>
+                        </div>
+
+                    </section>
+                </div>
+
+                <footer>
+                    Flow: Acquisition → Analytics → Lifecycle → Architecture → Checkout → Compliance → Growth.
+                    Each level deepens operational sophistication and correlates with higher GMV maturity.
+                </footer>
+
+            </body>
+
+            </html>
+        </section>
+        <section id="stair" class="min-h-screen flex items-center bg-[#0b0d13]">
+            <div class="mx-auto max-w-6xl px-6 w-full">
+                <div class="reveal bg-white/5 border border-white/10 shadow-glass rounded-3xl p-10 md:p-14">
+
+                    <!-- Header -->
+                    <h2 class="text-4xl md:text-5xl text-white mb-4 font-semibold text-center">
+                        Growth & Revenue Signal Staircase
+                    </h2>
+                    <p class="text-slate-300 text-lg max-w-3xl mx-auto text-center leading-relaxed">
+                        Each higher-tier tool appears only once <b>revenue, complexity, and team scale</b> justify it.
+                        Detecting these stacks allows <b>Boolsai</b> to estimate a company’s true <b>revenue band</b>
+                        and <b>operational maturity</b>.
+                    </p>
+
+                    <!-- Staircase -->
+                    <div class="mt-14 grid grid-cols-4 gap-6 items-end text-center">
+
+                        <!-- Tier 1 -->
+                        <div class="flex flex-col items-center justify-end h-[420px]">
+                            <div class="mb-3">
+                                <div class="text-xs text-indigo-300 uppercase tracking-wider">Starter</div>
+                                <h3 class="text-slate-100 text-sm font-semibold">&lt; $1M Revenue</h3>
+                            </div>
+                            <div
+                                class="w-full rounded-2xl border border-white/10 bg-gradient-to-t from-[#0f172a] to-[#172554] p-5 flex flex-col justify-between h-[35%] shadow-inner text-left">
+                                <p class="text-slate-400 text-xs leading-snug mb-3">
+                                    Basic automation, limited analytics.
+                                </p>
+                                <div class="space-y-2 text-slate-300 text-sm">
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5 rounded"
+                                            src="https://logo.clearbit.com/mailchimp.com"><span>Mailchimp</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5 rounded"
+                                            src="https://logo.clearbit.com/judge.me"><span>Judge.me</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tier 2 -->
+                        <div class="flex flex-col items-center justify-end h-[420px]">
+                            <div class="mb-3">
+                                <div class="text-xs text-indigo-300 uppercase tracking-wider">Scaling</div>
+                                <h3 class="text-slate-100 text-sm font-semibold">$1–5M Revenue</h3>
+                            </div>
+                            <div
+                                class="w-full rounded-2xl border border-white/10 bg-gradient-to-t from-[#172554] to-[#1e3a8a] p-5 flex flex-col justify-between h-[55%] shadow-inner text-left">
+                                <p class="text-slate-400 text-xs leading-snug mb-3">
+                                    Ad tracking, CRM maturity, and analytics feedback loops emerge.
+                                </p>
+                                <div class="space-y-2 text-slate-300 text-sm">
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5 rounded"
+                                            src="https://logo.clearbit.com/klaviyo.com"><span>Klaviyo</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5 rounded"
+                                            src="https://logo.clearbit.com/attentivemobile.com"><span>Attentive</span>
+                                    </div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5 rounded"
+                                            src="https://logo.clearbit.com/triplewhale.com"><span>Triple Whale</span>
+                                    </div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5 rounded"
+                                            src="https://logo.clearbit.com/mixpanel.com"><span>Mixpanel</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5 rounded"
+                                            src="https://logo.clearbit.com/okendo.io"><span>Okendo</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tier 3 -->
+                        <div class="flex flex-col items-center justify-end h-[420px]">
+                            <div class="mb-3">
+                                <div class="text-xs text-indigo-300 uppercase tracking-wider">Advanced</div>
+                                <h3 class="text-slate-100 text-sm font-semibold">$5–10M Revenue</h3>
+                            </div>
+                            <div
+                                class="w-full rounded-2xl border border-white/10 bg-gradient-to-t from-[#1e3a8a] to-[#312e81] p-5 flex flex-col justify-between h-[75%] shadow-inner text-left">
+                                <p class="text-slate-400 text-xs leading-snug mb-3">
+                                    Subscriptions, automation, and multi-channel data consolidation.
+                                </p>
+                                <div class="space-y-2 text-slate-300 text-sm">
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/rechargepayments.com"><span>Recharge</span>
+                                    </div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/gorgias.com"><span>Gorgias</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/amplitude.com"><span>Amplitude</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/northbeam.io"><span>Northbeam</span></div>
+
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/loox.app"><span>Loox</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/rebuyengine.com"><span>Rebuy</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/klenty.com"><span>Klenty</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tier 4 -->
+                        <div class="flex flex-col items-center justify-end h-[420px]">
+                            <div class="mb-3">
+                                <div class="text-xs text-indigo-300 uppercase tracking-wider">Enterprise</div>
+                                <h3 class="text-slate-100 text-sm font-semibold">$10M+ Revenue</h3>
+                            </div>
+                            <div
+                                class="w-full rounded-2xl border border-white/10 bg-gradient-to-t from-[#312e81] to-[#4338ca] p-5 flex flex-col justify-between h-[95%] shadow-inner text-left">
+                                <p class="text-slate-400 text-xs leading-snug mb-3">
+                                    Advanced attribution, data warehousing, BI, and regional scaling.
+                                </p>
+                                <div class="space-y-2 text-slate-300 text-sm">
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/shopify.com"><span>Shopify Plus</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/snowflake.com"><span>Snowflake</span></div>
+
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/optimizely.com"><span>Optimizely</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/salesforce.com"><span>Salesforce</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/braze.com"><span>Braze</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/mparticle.com"><span>mParticle</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/sentry.io"><span>Sentry</span></div>
+                                    <div class="flex items-center gap-2"><img class="h-5 w-5"
+                                            src="https://logo.clearbit.com/datadog.com"><span>Datadog</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <p class="text-[14px] text-slate-400 mt-10 text-center leading-relaxed">
+                        Higher-tier tech sets a <b>revenue floor</b> —
+                        multiple detections <span class="text-accent2">triangulate commercial scale</span> months ahead
+                        of public data.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="discover" class="py-28 bg-[#0b0d13] flex items-center">
+            <div class="mx-auto max-w-6xl px-6 text-center">
+                <div class="reveal rounded-xl2 border border-white/10 bg-white/5 shadow-glass p-12 md:p-16">
+
+                    <h2 class="text-5xl md:text-6xl font-semibold text-white mb-10 leading-tight">
+                        Undiscovered <span class="text-accent2">High-Value DTC Brands</span>
+                    </h2>
+
+                    <div
+                        class="space-y-6 text-[20px] md:text-[22px] text-slate-300 font-light max-w-3xl mx-auto leading-relaxed">
+                        <p><span class="text-accent font-medium">Founder-led</span> and consistently <b>profitable</b>
+                        </p>
+                        <p>Driven by <span class="text-accent2 font-medium">mature tech signals</span> that reveal scale
+                            and efficiency</p>
+                        <p><span class="text-slate-100 font-medium">Absent from VC databases</span> — no Crunchbase, no
+                            PitchBook, no noise</p>
+                        <p><span class="text-accent font-medium">High-value opportunities</span> hidden in plain sight
+                        </p>
+                    </div>
+
+                    <div class="mt-12 border-t border-white/10 pt-6">
+                        <p class="text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
+                            <b class="text-white/90">Boolsai</b> detects these brands where no one else can —
+                            using <span class="text-accent font-semibold">live operational maturity signals</span>
+                            to uncover <span class="text-accent2 font-semibold">off-market growth intelligence</span>
+                            long before it becomes visible to investors or analysts.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- OPTIONAL: Extra content from your deck (architecture, discovery, etc.) -->
+        <!-- SECTION: Case Study — Louenhide -->
+        <!-- SECTION: Case Study — Louenhide -->
+        <!-- SECTION: Case Study — Louenhide -->
+        <section id="louenhide" class="min-h-screen flex items-center">
+            <div class="mx-auto max-w-6xl px-5 w-full">
+                <div class="reveal bg-white/5 border border-white/10 shadow-glass rounded-xl2 p-8 md:p-12">
+
+                    <!-- Header -->
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-8">
+                        <h2 class="text-3xl md:text-4xl font-semibold text-white">
+                            Case Study: <span class="text-accent">Louenhide</span> (Australia)
+                        </h2>
+
+                    </div>
+
+                    <p class="text-slate-300 text-[18px] leading-relaxed mb-8 max-w-4xl">
+                        Boolsai identified <b>Louenhide</b> — a founder-led, profitable DTC accessories brand in
+                        Queensland —
+                        entirely from its <span class="text-accent">live front-end tech signals</span>.
+                        The system inferred its scale, independence, and operational maturity — all later confirmed by
+                        third-party data.
+                    </p>
+
+                    <!-- Visual Table -->
+                    <div
+                        class="overflow-hidden rounded-2xl border border-white/10 bg-black/30 divide-y divide-white/10">
+
+                        <!-- Header Row -->
+                        <div
+                            class="grid grid-cols-3 bg-black/40 text-xs font-semibold uppercase text-white/70 tracking-wider">
+                            <div class="py-3 px-4">Stack Layer</div>
+                            <div class="py-3 px-4">Boolsai Inference</div>
+                            <div class="py-3 px-4">Confirmed Insight</div>
+                        </div>
+
+                        <!-- Row 1 -->
+                        <div class="grid grid-cols-3 text-sm hover:bg-white/5 transition">
+                            <div class="py-5 px-4">
+                                <div class="text-accent font-medium">🛒 Commerce / Payments</div>
+                                <p class="text-slate-400 text-xs mt-1">
+                                    Shopify Plus · Shop Pay · Stripe · Afterpay · Zip Pay
+                                </p>
+                            </div>
+                            <div class="py-5 px-4 text-slate-300 space-y-1">
+                                <ul class="list-disc list-inside text-[13px]">
+                                    <li><b>Multi-PSP stack</b> suggests enterprise-grade ops.</li>
+                                    <li><b>Cross-region Shopify Plus</b> → global fulfillment.</li>
+                                    <li><b>Estimated revenue</b> ≥ $10M.</li>
+                                </ul>
+                            </div>
+                            <div class="py-5 px-4 text-green-400 font-medium flex items-start gap-2">
+                                ✅ <span>AfterShip benchmarked at <b>$13M</b> — matches prediction.</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="grid grid-cols-3 text-sm hover:bg-white/5 transition">
+                            <div class="py-5 px-4">
+                                <div class="text-accent font-medium">💬 CRM / Lifecycle</div>
+                                <p class="text-slate-400 text-xs mt-1">Klaviyo · Gorgias · Loox</p>
+                            </div>
+                            <div class="py-5 px-4 text-slate-300 space-y-1">
+                                <ul class="list-disc list-inside text-[13px]">
+                                    <li><b>Advanced retention stack</b> → mid-stage sophistication.</li>
+                                    <li><b>In-house CRM control</b> → founder-driven marketing.</li>
+                                </ul>
+                            </div>
+                            <div class="py-5 px-4 text-green-400 font-medium flex items-start gap-2">
+                                ✅ <span>Active Klaviyo & Loox scripts confirmed via live tags.</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="grid grid-cols-3 text-sm hover:bg-white/5 transition">
+                            <div class="py-5 px-4">
+                                <div class="text-accent font-medium">📈 Marketing / Analytics</div>
+                                <p class="text-slate-400 text-xs mt-1">Profit Peak · Rebuy · Microsoft Clarity</p>
+                            </div>
+                            <div class="py-5 px-4 text-slate-300 space-y-1">
+                                <ul class="list-disc list-inside text-[13px]">
+                                    <li><b>A/B testing + pixel stack</b> → marketing agility.</li>
+                                    <li><b>Internal performance layer</b> → organic scaling.</li>
+                                </ul>
+                            </div>
+                            <div class="py-5 px-4 text-green-400 font-medium flex items-start gap-2">
+                                ✅ <span>Profit Peak & Clarity confirmed via site data and API ping.</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="grid grid-cols-3 text-sm hover:bg-white/5 transition">
+                            <div class="py-5 px-4">
+                                <div class="text-accent font-medium">🌐 Infrastructure</div>
+                                <p class="text-slate-400 text-xs mt-1">Shopify Cloud · Cloudflare (AU/US/UK/NZ)</p>
+                            </div>
+                            <div class="py-5 px-4 text-slate-300 space-y-1">
+                                <ul class="list-disc list-inside text-[13px]">
+                                    <li><b>Global CDN</b> → multi-region caching, consistent uptime.</li>
+                                    <li><b>Traffic distribution</b> suggests active international reach.</li>
+                                </ul>
+                            </div>
+                            <div class="py-5 px-4 text-green-400 font-medium flex items-start gap-2">
+                                ✅ <span>DNS + asset geo-trace confirm multi-region cache nodes.</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 5 -->
+                        <div class="grid grid-cols-3 text-sm hover:bg-white/5 transition">
+                            <div class="py-5 px-4">
+                                <div class="text-accent font-medium">💼 Ownership / Finance</div>
+                                <p class="text-slate-400 text-xs mt-1">No ERP · No Salesforce / HubSpot Enterprise</p>
+                            </div>
+                            <div class="py-5 px-4 text-slate-300 space-y-1">
+                                <ul class="list-disc list-inside text-[13px]">
+                                    <li><b>Lean finance ops</b>→ founder-managed structure.</li>
+                                    <li><b>No enterprise stack</b>→ self-funded growth model.</li>
+                                </ul>
+                            </div>
+                            <div class="py-5 px-4 text-green-400 font-medium flex items-start gap-2">
+                                ✅ <span>No Crunchbase / PitchBook presence — confirmed independent.</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 6 -->
+                        <div class="grid grid-cols-3 text-sm hover:bg-white/5 transition">
+                            <div class="py-5 px-4">
+                                <div class="text-accent font-medium">👥 Team / Presence</div>
+                                <p class="text-slate-400 text-xs mt-1">Detected via LinkedIn metadata</p>
+                            </div>
+                            <div class="py-5 px-4 text-slate-300 space-y-1">
+                                <ul class="list-disc list-inside text-[13px]">
+                                    <li><b>Predicted 15–25 staff</b> → SME-scale operation.</li>
+                                    <li><b>Consistent hiring pattern</b> with growing sales velocity.</li>
+                                </ul>
+                            </div>
+                            <div class="py-5 px-4 text-green-400 font-medium flex items-start gap-2">
+                                ✅ <span>18 employees listed on LinkedIn — matched exactly.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <div
+                        class="mt-10 bg-gradient-to-r from-accent/10 to-transparent rounded-2xl border border-white/10 p-6">
+                        <h3 class="text-white/90 text-lg mb-2 font-semibold">Outcome</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Boolsai accurately inferred Louenhide’s <b>$10–13M revenue band</b>, <b>independent
+                                ownership</b>,
+                            and <b>mid-market sophistication</b> — all later confirmed by <b>AfterShip</b> and
+                            <b>LinkedIn</b> data.
+                            This case demonstrates Boolsai’s ability to uncover <b>profitable, private DTC brands
+                                invisible to legacy data sources</b>.
+                        </p>
+                    </div>
+
+                    <!-- Footer -->
+                    <div
+                        class="mt-8 flex flex-col sm:flex-row items-center justify-between border-t border-white/10 pt-4">
+                        <p class="text-xs text-slate-400">
+                            Source: Boolsai live scan of
+                            <a href="https://www.louenhide.com.au" target="_blank" class="text-accent hover:underline">
+                                louenhide.com.au
+                            </a> (2025)
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-black/30">
+        <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-white/50">
+            © Boolsai. Dark UI crafted with Tailwind. Live intelligence from front-end signals.
+        </div>
+    </footer>
+
+    <!-- Scripts: reveal, progress, parallax -->
+    <script>
+        // Reveal on scroll (IntersectionObserver)
+        const observer = new IntersectionObserver((entries) => {
+            for (const e of entries) {
+                if (e.isIntersecting) e.target.classList.add('in-view');
+            }
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Progress bar
+        const progress = document.getElementById('progress');
+        const onScroll = () => {
+            const h = document.documentElement;
+            const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+            progress.style.width = (scrolled * 100).toFixed(2) + '%';
+        };
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // Parallax background
+        const para = document.querySelector('.para');
+        let lastY = 0;
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            // subtle parallax (medium intensity)
+            const dy = (y - lastY) * 0.08;
+            para.style.transform = `translateY(${y * -0.06}px)`;
+            lastY = y - dy;
+        }, { passive: true });
+    </script>
+</body>
+
+</html>
